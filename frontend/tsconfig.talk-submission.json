@@ -10,6 +10,7 @@
   "include": [
     "src/app/talk-submission/**/*.ts",
     "src/app/cfp-dashboard/**/*.ts",
+    "src/app/event-creation/**/*.ts",
     "src/app/cfp-theme.ts",
     "test-setup-talk-submission.ts"
   ]

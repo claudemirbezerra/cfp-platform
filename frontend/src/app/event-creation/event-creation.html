@@ -1,0 +1,79 @@
+<label class="event-creation__theme">
+  <input
+    type="checkbox"
+    [checked]="theme() === 'night'"
+    (change)="setNightTheme($event)"
+  />
+  Night theme
+</label>
+<form
+  class="event-creation"
+  aria-labelledby="event-creation-heading"
+  [formGroup]="form"
+  (ngSubmit)="submit()"
+>
+  <h1 id="event-creation-heading">Cadastro de Local do Evento</h1>
+
+  <label for="event-nome">Nome</label>
+  <input
+    id="event-nome"
+    name="nome"
+    type="text"
+    formControlName="nome"
+    aria-describedby="event-nome-hint"
+  />
+  <p id="event-nome-hint" class="event-creation__hint">
+    Nome do evento ou local.
+  </p>
+
+  <label for="event-endereco">Endereço</label>
+  <input
+    id="event-endereco"
+    name="endereco"
+    type="text"
+    formControlName="endereco"
+    aria-describedby="event-endereco-hint"
+  />
+  <p id="event-endereco-hint" class="event-creation__hint">
+    Endereço completo onde o evento será realizado.
+  </p>
+
+  <label for="event-capacidade">Capacidade</label>
+  <input
+    id="event-capacidade"
+    name="capacidade"
+    type="number"
+    min="1"
+    formControlName="capacidade"
+    aria-describedby="event-capacidade-hint"
+  />
+  <p id="event-capacidade-hint" class="event-creation__hint">
+    Número máximo de participantes permitidos.
+  </p>
+
+  <label for="event-data">Data</label>
+  <input
+    id="event-data"
+    name="data"
+    type="text"
+    placeholder="YYYY-MM-DD"
+    formControlName="data"
+    aria-describedby="event-data-hint"
+  />
+  <p id="event-data-hint" class="event-creation__hint">
+    Data de realização do evento (ex: 2026-11-20).
+  </p>
+
+  <button class="cfp-button event-creation__submit" type="submit" [disabled]="!canSubmit()">
+    Salvar evento
+  </button>
+
+  @if (created(); as event) {
+    <p class="event-creation__success" role="status">
+      Evento "{{ event.nome }}" cadastrado com sucesso.
+    </p>
+  }
+  @if (submitError(); as message) {
+    <p class="event-creation__error" role="alert">{{ message }}</p>
+  }
+</form>
