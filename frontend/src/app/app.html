@@ -1,2 +1,11 @@
-<router-outlet></router-outlet>
+<header class="cfp-navbar" role="banner">
+  <nav class="cfp-navbar__nav" aria-label="Main navigation">
+    <a routerLink="/event/new" routerLinkActive="active" class="cfp-navbar__link">Cadastro de Evento</a>
+    <a routerLink="/talks/new" routerLinkActive="active" class="cfp-navbar__link">Cadastro de Palestra</a>
+    <a routerLink="/dashboard" routerLinkActive="active" class="cfp-navbar__link">Dashboard</a>
+  </nav>
+</header>
+<main>
+  <router-outlet></router-outlet>
+</main>
 

@@ -1,0 +1,36 @@
+.cfp-navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+.cfp-navbar__nav {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cfp-navbar__link {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  color: var(--text);
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.cfp-navbar__link:hover {
+  background: var(--page);
+}
+
+.cfp-navbar__link.active {
+  background: var(--button-fill);
+  color: var(--button-label);
+}

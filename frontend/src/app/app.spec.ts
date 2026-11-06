@@ -49,4 +49,49 @@ describe('App', () => {
       expect(submit?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Submit proposal');
     }
   });
+
+  it('should render navigation menu with the 3 required options and navigate properly', async () => {
+    const fixture = TestBed.createComponent(App);
+    const router = TestBed.inject(Router);
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const nav = compiled.querySelector('nav');
+    expect(nav).not.toBeNull();
+
+    const navLinks = Array.from(nav?.querySelectorAll('a') ?? []);
+    expect(navLinks.length).toBe(3);
+
+    const linkTexts = navLinks.map((l) => l.textContent?.trim());
+    expect(linkTexts).toEqual([
+      'Cadastro de Evento',
+      'Cadastro de Palestra',
+      'Dashboard',
+    ]);
+
+    const linkHrefs = navLinks.map((l) => l.getAttribute('href'));
+    expect(linkHrefs).toEqual([
+      '/event/new',
+      '/talks/new',
+      '/dashboard',
+    ]);
+
+    // Test navigation to /event/new
+    await router.navigateByUrl('/event/new');
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(compiled.querySelector('h1')?.textContent).toContain('Cadastro de Local do Evento');
+
+    // Test navigation to /talks/new
+    await router.navigateByUrl('/talks/new');
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(compiled.querySelector('h1')?.textContent).toContain('Submit a talk');
+
+    // Test navigation to /dashboard
+    await router.navigateByUrl('/dashboard');
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(compiled.querySelector('h1')?.textContent).toContain('Submitted talks');
+  });
 });
