@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../dist/out-tsc",
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "types": ["jest", "node"],
+    "esModuleInterop": true
+  },
+  "include": [
+    "src/app/talk-submission/**/*.ts",
+    "test-setup-talk-submission.ts"
+  ]
+}

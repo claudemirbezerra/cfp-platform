@@ -1,0 +1,46 @@
+.talk-submission {
+  box-sizing: border-box;
+  max-width: 32rem;
+  margin: 2rem auto;
+  padding: 0 1rem 2rem;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+.talk-submission h1 {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+}
+
+.talk-submission label {
+  display: block;
+  margin-top: 0.75rem;
+  font-weight: 600;
+}
+
+.talk-submission input[type='text'],
+.talk-submission input[type='email'] {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.5rem;
+}
+
+.talk-submission__gde {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.talk-submission__gde label {
+  margin-top: 0;
+}
+
+.talk-submission button {
+  margin-top: 1rem;
+}
+
+.talk-submission p {
+  margin-top: 1rem;
+}
