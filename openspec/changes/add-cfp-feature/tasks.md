@@ -2,15 +2,15 @@
 
 ## 1. Dependencies
 
-- [ ] 1.1 Add `class-validator` and `class-transformer` as dependencies and `supertest` plus `@types/supertest` as dev dependencies. Verify `npm ls class-validator class-transformer supertest @types/supertest` resolves them from the workspace root.
+- [x] 1.1 Add `class-validator` and `class-transformer` as dependencies and `supertest` plus `@types/supertest` as dev dependencies. Verify `npm ls class-validator class-transformer supertest @types/supertest` resolves them from the workspace root.
 - [ ] 1.2 Add a `jest-preset-angular` release that supports Angular 22.2, create `frontend/jest.talk-submission.config.cts` (do not add `frontend/jest.config.cts`), and add an explicit `test-jest` target on `frontend` using `@nx/jest:jest`. Verify `npx nx show project frontend --json` lists `test-jest` and that the existing `test` target still uses `@angular/build:unit-test`.
 
 ## 2. API submission
 
-- [ ] 2.1 Add a body class under `api/src/app/speakers/` that implements `Omit<SpeakerDTO, 'id'>` and is decorated with `class-validator`: non-empty `name`, valid `email`, non-empty `talkTitle`, boolean `isGDE`. Import `SpeakerDTO` from `@cfp-platform/shared-types`. Verify `npx nx build api` compiles the class.
-- [ ] 2.2 Add an in-memory speakers service that assigns `id` with `crypto.randomUUID()` and returns `SpeakerDTO`, plus a controller method `POST` under the existing global prefix so the route is `POST /api/speakers`, taking the body class via `@Body()`. Import the feature module from `AppModule` without changing `GET /api`. Verify `npx nx build api` still compiles and `AppController` remains registered.
-- [ ] 2.3 Register one `ValidationPipe` (`whitelist`, `forbidNonWhitelisted`, `transform`, `enableImplicitConversion: false`) from a helper used by `main.ts`. Verify the helper is the same function the HTTP spec in task 2.4 will call, by importing it from both `main.ts` and the spec.
-- [ ] 2.4 Add a Jest spec in the existing `api` Jest project that boots the Nest testing app with the prefix `api` and that pipe, then uses `supertest` against `POST /api/speakers`. Cover a missing talk title, an invalid email, a non-boolean `isGDE`, and an unknown field: each responds `400` and does not appear in the in-memory store. Cover one valid body without `id`: response `201` and a `SpeakerDTO` whose `name`, `email`, `talkTitle`, and `isGDE` match the body and whose `id` is a non-empty string. Verify with `npx nx test api`.
+- [x] 2.1 Add a body class under `api/src/app/speakers/` that implements `Omit<SpeakerDTO, 'id'>` and is decorated with `class-validator`: non-empty `name`, valid `email`, non-empty `talkTitle`, boolean `isGDE`. Import `SpeakerDTO` from `@cfp-platform/shared-types`. Verify `npx nx build api` compiles the class.
+- [x] 2.2 Add an in-memory speakers service that assigns `id` with `crypto.randomUUID()` and returns `SpeakerDTO`, plus a controller method `POST` under the existing global prefix so the route is `POST /api/speakers`, taking the body class via `@Body()`. Import the feature module from `AppModule` without changing `GET /api`. Verify `npx nx build api` still compiles and `AppController` remains registered.
+- [x] 2.3 Register one `ValidationPipe` (`whitelist`, `forbidNonWhitelisted`, `transform`, `enableImplicitConversion: false`) from a helper used by `main.ts`. Verify the helper is the same function the HTTP spec in task 2.4 will call, by importing it from both `main.ts` and the spec.
+- [x] 2.4 Add a Jest spec in the existing `api` Jest project that boots the Nest testing app with the prefix `api` and that pipe, then uses `supertest` against `POST /api/speakers`. Cover a missing talk title, an invalid email, a non-boolean `isGDE`, and an unknown field: each responds `400` and does not appear in the in-memory store. Cover one valid body without `id`: response `201` and a `SpeakerDTO` whose `name`, `email`, `talkTitle`, and `isGDE` match the body and whose `id` is a non-empty string. Verify with `npx nx test api`.
 
 ## 3. Angular submission form
 
