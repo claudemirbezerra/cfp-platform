@@ -1,3 +1,11 @@
+<label class="talk-submission__theme">
+  <input
+    type="checkbox"
+    [checked]="theme() === 'night'"
+    (change)="setNightTheme($event)"
+  />
+  Night theme
+</label>
 <form
   class="talk-submission"
   aria-labelledby="talk-submission-heading"
@@ -12,8 +20,12 @@
     type="text"
     autocomplete="name"
     [value]="draft().name"
+    aria-describedby="speaker-name-hint"
     (input)="patchText('name', $event)"
   />
+  <p id="speaker-name-hint" class="talk-submission__hint">
+    Use the name you want on the schedule.
+  </p>
 
   <label for="speaker-email">Email</label>
   <input
@@ -22,8 +34,12 @@
     type="email"
     autocomplete="email"
     [value]="draft().email"
+    aria-describedby="speaker-email-hint"
     (input)="patchText('email', $event)"
   />
+  <p id="speaker-email-hint" class="talk-submission__hint">
+    We'll reply about this proposal at this address.
+  </p>
 
   <label for="speaker-talk-title">Talk title</label>
   <input
@@ -31,8 +47,12 @@
     name="talkTitle"
     type="text"
     [value]="draft().talkTitle"
+    aria-describedby="speaker-talk-title-hint"
     (input)="patchText('talkTitle', $event)"
   />
+  <p id="speaker-talk-title-hint" class="talk-submission__hint">
+    A short title attendees can recognize.
+  </p>
 
   <div class="talk-submission__gde">
     <input
@@ -40,17 +60,25 @@
       name="isGDE"
       type="checkbox"
       [checked]="draft().isGDE"
+      aria-describedby="speaker-gde-hint"
       (change)="patchGde($event)"
     />
     <label for="speaker-gde">Google Developer Expert</label>
   </div>
+  <p id="speaker-gde-hint" class="talk-submission__hint">
+    Select this if you are a Google Developer Expert.
+  </p>
 
-  <button type="submit" [disabled]="!canSubmit()">Submit proposal</button>
+  <button class="talk-submission__submit" type="submit" [disabled]="!canSubmit()">
+    Submit proposal
+  </button>
 
   @if (created(); as speaker) {
-    <p role="status">Proposal received for {{ speaker.talkTitle }}.</p>
+    <p class="talk-submission__success" role="status">
+      Proposal received for {{ speaker.talkTitle }}.
+    </p>
   }
   @if (submitError(); as message) {
-    <p role="alert">{{ message }}</p>
+    <p class="talk-submission__error" role="alert">{{ message }}</p>
   }
 </form>

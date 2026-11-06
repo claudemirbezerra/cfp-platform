@@ -1,19 +1,67 @@
+:host {
+  --page: #eef2f6;
+  --card: #ffffff;
+  --text: #1c2430;
+  --hint: #4b5568;
+  --border: #d5dde6;
+  --button-fill: #1d4ed8;
+  --button-label: #ffffff;
+  --success-bg: #e5f6ec;
+  --success-text: #14532d;
+  --error-bg: #fde8e8;
+  --error-text: #7f1d1d;
+  display: block;
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  background: var(--page);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+:host([data-theme='night']) {
+  --page: #0f141c;
+  --card: #1a2230;
+  --text: #e8eef7;
+  --hint: #b7c3d4;
+  --border: #2c3848;
+  --button-fill: #60a5fa;
+  --button-label: #0b1220;
+  --success-bg: #143528;
+  --success-text: #bbf7d0;
+  --error-bg: #3f1d24;
+  --error-text: #fecaca;
+}
+
+.talk-submission__theme {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  max-width: 32rem;
+  margin: 0 auto 1rem;
+  font-weight: 600;
+}
+
 .talk-submission {
   box-sizing: border-box;
   max-width: 32rem;
-  margin: 2rem auto;
-  padding: 0 1rem 2rem;
-  font-family: ui-sans-serif, system-ui, sans-serif;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
 }
 
 .talk-submission h1 {
   margin: 0 0 1rem;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  line-height: 1.2;
 }
 
 .talk-submission label {
   display: block;
-  margin-top: 0.75rem;
+  margin-top: 1rem;
   font-weight: 600;
 }
 
@@ -22,25 +70,68 @@
   display: block;
   box-sizing: border-box;
   width: 100%;
-  margin-top: 0.25rem;
-  padding: 0.5rem;
+  margin-top: 0.35rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--page);
+  color: var(--text);
+  font: inherit;
+}
+
+.talk-submission__hint {
+  margin: 0.35rem 0 0;
+  color: var(--hint);
+  font-size: 0.875rem;
+  line-height: 1.4;
 }
 
 .talk-submission__gde {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 0.75rem;
+  margin-top: 1rem;
 }
 
 .talk-submission__gde label {
   margin-top: 0;
 }
 
-.talk-submission button {
-  margin-top: 1rem;
+.talk-submission__submit {
+  margin-top: 1.25rem;
+  padding: 0.75rem 1.25rem;
+  border: 0;
+  border-radius: 0.6rem;
+  background: var(--button-fill);
+  color: var(--button-label);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
 }
 
-.talk-submission p {
-  margin-top: 1rem;
+.talk-submission__submit:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.talk-submission__submit:focus-visible {
+  outline: 2px solid var(--button-fill);
+  outline-offset: 2px;
+}
+
+.talk-submission__success,
+.talk-submission__error {
+  margin: 1rem 0 0;
+  padding: 0.85rem 1rem;
+  border-radius: 0.6rem;
+}
+
+.talk-submission__success {
+  background: var(--success-bg);
+  color: var(--success-text);
+}
+
+.talk-submission__error {
+  background: var(--error-bg);
+  color: var(--error-text);
 }
