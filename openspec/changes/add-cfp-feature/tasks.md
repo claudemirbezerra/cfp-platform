@@ -3,7 +3,7 @@
 ## 1. Dependencies
 
 - [ ] 1.1 Add `class-validator` and `class-transformer` as dependencies and `supertest` plus `@types/supertest` as dev dependencies. Verify `npm ls class-validator class-transformer supertest @types/supertest` resolves them from the workspace root.
-- [ ] 1.2 Add a `jest-preset-angular` release that supports Angular 22.2, create `frontend/jest.talk-submission.config.cts` (do not add `frontend/jest.config.cts`), and add an explicit `test-jest` target on `frontend` using `@nx/jest:jest`. Verify `npx nx show project frontend --json` lists `test-jest` and that the existing `test` target still uses `@angular/build:unit-test`.
+- [x] 1.2 Add a `jest-preset-angular` release that supports Angular 22.2, create `frontend/jest.talk-submission.config.cts` (do not add `frontend/jest.config.cts`), and add an explicit `test-jest` target on `frontend` using `@nx/jest:jest`. Verify `npx nx show project frontend --json` lists `test-jest` and that the existing `test` target still uses `@angular/build:unit-test`.
 
 ## 2. API submission
 
@@ -14,8 +14,8 @@
 
 ## 3. Angular submission form
 
-- [ ] 3.1 Add a standalone submission component under `frontend/src/app/talk-submission/` that imports `SpeakerDTO` from `@cfp-platform/shared-types`. Hold the draft in a `signal<Omit<SpeakerDTO, 'id'>>` whose initial value is `{ name: '', email: '', talkTitle: '', isGDE: false }`. Derive a `computed` that is true only when trimmed name and talk title are non-empty and the email matches a simple email check. Bind the submit button's native `disabled` attribute to the inverse of that computed value. Give the form an accessible name, associate each field with a `<label for>`, and give the submit button visible text. Register route `cfp`, add `provideHttpClient()` in `app.config.ts`, and post JSON to `/api/speakers`. Verify the component file is standalone (`imports` on the `@Component` decorator, no `NgModule`) and `npx nx build frontend` succeeds.
-- [ ] 3.2 Add a Jest spec for that component, included only by `frontend/jest.talk-submission.config.cts`. Assert the draft signal's initial value is the empty draft above, assert the submit button is disabled on first render, and assert accessible names for name, email, talk title, the GDE checkbox, and the submit button. Verify with `npx nx test-jest frontend`.
+- [x] 3.1 Add a standalone submission component under `frontend/src/app/talk-submission/` that imports `SpeakerDTO` from `@cfp-platform/shared-types`. Hold the draft in a `signal<Omit<SpeakerDTO, 'id'>>` whose initial value is `{ name: '', email: '', talkTitle: '', isGDE: false }`. Derive a `computed` that is true only when trimmed name and talk title are non-empty and the email matches a simple email check. Bind the submit button's native `disabled` attribute to the inverse of that computed value. Give the form an accessible name, associate each field with a `<label for>`, and give the submit button visible text. Register route `cfp`, add `provideHttpClient()` in `app.config.ts`, and post JSON to `/api/speakers`. Verify the component file is standalone (`imports` on the `@Component` decorator, no `NgModule`) and `npx nx build frontend` succeeds.
+- [x] 3.2 Add a Jest spec for that component, included only by `frontend/jest.talk-submission.config.cts`. Assert the draft signal's initial value is the empty draft above, assert the submit button is disabled on first render, and assert accessible names for name, email, talk title, the GDE checkbox, and the submit button. Verify with `npx nx test-jest frontend`.
 
 ## 4. Integration check
 

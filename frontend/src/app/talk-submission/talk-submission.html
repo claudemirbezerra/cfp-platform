@@ -1,0 +1,56 @@
+<form
+  class="talk-submission"
+  aria-labelledby="talk-submission-heading"
+  (submit)="submit($event)"
+>
+  <h1 id="talk-submission-heading">Submit a talk</h1>
+
+  <label for="speaker-name">Name</label>
+  <input
+    id="speaker-name"
+    name="name"
+    type="text"
+    autocomplete="name"
+    [value]="draft().name"
+    (input)="patchText('name', $event)"
+  />
+
+  <label for="speaker-email">Email</label>
+  <input
+    id="speaker-email"
+    name="email"
+    type="email"
+    autocomplete="email"
+    [value]="draft().email"
+    (input)="patchText('email', $event)"
+  />
+
+  <label for="speaker-talk-title">Talk title</label>
+  <input
+    id="speaker-talk-title"
+    name="talkTitle"
+    type="text"
+    [value]="draft().talkTitle"
+    (input)="patchText('talkTitle', $event)"
+  />
+
+  <div class="talk-submission__gde">
+    <input
+      id="speaker-gde"
+      name="isGDE"
+      type="checkbox"
+      [checked]="draft().isGDE"
+      (change)="patchGde($event)"
+    />
+    <label for="speaker-gde">Google Developer Expert</label>
+  </div>
+
+  <button type="submit" [disabled]="!canSubmit()">Submit proposal</button>
+
+  @if (created(); as speaker) {
+    <p role="status">Proposal received for {{ speaker.talkTitle }}.</p>
+  }
+  @if (submitError(); as message) {
+    <p role="alert">{{ message }}</p>
+  }
+</form>
