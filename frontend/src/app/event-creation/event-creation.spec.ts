@@ -32,25 +32,36 @@ describe('EventCreation', () => {
     }).compileComponents();
   });
 
-  it('starts with an invalid reactive form and submit disabled', () => {
+  it('starts with an invalid reactive form and submit enabled for native validation', () => {
     const fixture = TestBed.createComponent(EventCreation);
     fixture.detectChanges();
 
     const root = fixture.nativeElement as HTMLElement;
+    const form = root.querySelector('form.event-creation') as HTMLFormElement;
 
     expect(fixture.componentInstance.form.valid).toBe(false);
     expect(fixture.componentInstance.canSubmit()).toBe(false);
+    expect(form.hasAttribute('novalidate')).toBe(false);
 
     const submit = root.querySelector('button[type="submit"]') as HTMLButtonElement;
     expect(submit).toBeInstanceOf(HTMLButtonElement);
     expect(submit.classList.contains('cfp-button')).toBe(true);
-    expect(submit.disabled).toBe(true);
+    expect(submit.disabled).toBe(false);
     expect(accessibleName(submit)).toBe('Salvar evento');
 
-    expect(accessibleName(root.querySelector('#event-nome') as HTMLElement)).toBe('Nome');
-    expect(accessibleName(root.querySelector('#event-endereco') as HTMLElement)).toBe('Endereço');
-    expect(accessibleName(root.querySelector('#event-capacidade') as HTMLElement)).toBe('Capacidade');
-    expect(accessibleName(root.querySelector('#event-data') as HTMLElement)).toBe('Data');
+    const nome = root.querySelector('#event-nome') as HTMLInputElement;
+    const endereco = root.querySelector('#event-endereco') as HTMLInputElement;
+    const capacidade = root.querySelector('#event-capacidade') as HTMLInputElement;
+    const data = root.querySelector('#event-data') as HTMLInputElement;
+
+    expect(accessibleName(nome)).toBe('Nome');
+    expect(accessibleName(endereco)).toBe('Endereço');
+    expect(accessibleName(capacidade)).toBe('Capacidade');
+    expect(accessibleName(data)).toBe('Data');
+    expect(nome.required).toBe(true);
+    expect(endereco.required).toBe(true);
+    expect(capacidade.required).toBe(true);
+    expect(data.required).toBe(true);
 
     expect(hintText(root, 'event-nome')).toBe('Nome do evento ou local.');
     expect(hintText(root, 'event-endereco')).toBe('Endereço completo onde o evento será realizado.');
@@ -58,7 +69,7 @@ describe('EventCreation', () => {
     expect(hintText(root, 'event-data')).toBe('Data de realização do evento (ex: 2026-11-20).');
   });
 
-  it('enables the submit button when form is valid', () => {
+  it('keeps the submit button enabled when form is valid and idle', () => {
     const fixture = TestBed.createComponent(EventCreation);
     fixture.detectChanges();
 

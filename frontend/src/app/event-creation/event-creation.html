@@ -11,6 +11,7 @@
   aria-labelledby="event-creation-heading"
   [formGroup]="form"
   (ngSubmit)="submit()"
+  ngNativeValidate
 >
   <h1 id="event-creation-heading">Cadastro de Local do Evento</h1>
 
@@ -20,6 +21,7 @@
     name="nome"
     type="text"
     formControlName="nome"
+    required
     aria-describedby="event-nome-hint"
   />
   <p id="event-nome-hint" class="event-creation__hint">
@@ -32,6 +34,7 @@
     name="endereco"
     type="text"
     formControlName="endereco"
+    required
     aria-describedby="event-endereco-hint"
   />
   <p id="event-endereco-hint" class="event-creation__hint">
@@ -45,6 +48,7 @@
     type="number"
     min="1"
     formControlName="capacidade"
+    required
     aria-describedby="event-capacidade-hint"
   />
   <p id="event-capacidade-hint" class="event-creation__hint">
@@ -58,13 +62,14 @@
     type="text"
     placeholder="YYYY-MM-DD"
     formControlName="data"
+    required
     aria-describedby="event-data-hint"
   />
   <p id="event-data-hint" class="event-creation__hint">
     Data de realização do evento (ex: 2026-11-20).
   </p>
 
-  <button class="cfp-button event-creation__submit" type="submit" [disabled]="!canSubmit()">
+  <button class="cfp-button event-creation__submit" type="submit" [disabled]="isSubmitting()">
     Salvar evento
   </button>
 
