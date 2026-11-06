@@ -74,7 +74,23 @@
     "test": {
       "executor": "@angular/build:unit-test",
       "options": {
-        "watch": false
+        "watch": false,
+        "exclude": [
+          "app/talk-submission/**/*.spec.ts"
+        ]
+      }
+    },
+    "test-jest": {
+      "executor": "nx:run-commands",
+      "outputs": [
+        "{workspaceRoot}/coverage/frontend"
+      ],
+      "options": {
+        "command": "jest --config ./frontend/jest.talk-submission.config.cts",
+        "cwd": ".",
+        "env": {
+          "TS_NODE_COMPILER_OPTIONS": "{\"moduleResolution\":\"node10\",\"module\":\"commonjs\",\"customConditions\":null}"
+        }
       }
     },
     "serve-static": {
