@@ -1,9 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, computed, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { SpeakerDTO } from '@cfp-platform/shared-types';
+import {
+  CFP_THEME_STORAGE_KEY,
+  CfpTheme,
+  DARK_SCHEME_QUERY,
+  storedTheme,
+  systemPrefersNight,
+} from '../cfp-theme';
 
 type TalkDraft = Omit<SpeakerDTO, 'id'>;
-type ThemeName = 'light' | 'night';
 
 const EMPTY_DRAFT: TalkDraft = {
   name: '',
@@ -13,27 +20,12 @@ const EMPTY_DRAFT: TalkDraft = {
 };
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const THEME_STORAGE_KEY = 'cfp-theme';
-const DARK_SCHEME_QUERY = '(prefers-color-scheme: dark)';
-
-function storedTheme(): ThemeName | null {
-  try {
-    const value = localStorage.getItem(THEME_STORAGE_KEY);
-    return value === 'light' || value === 'night' ? value : null;
-  } catch {
-    return null;
-  }
-}
-
-function systemPrefersNight(): boolean {
-  return window.matchMedia(DARK_SCHEME_QUERY).matches;
-}
 
 @Component({
   selector: 'app-talk-submission',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './talk-submission.html',
-  styleUrl: './talk-submission.css',
+  styleUrls: ['../cfp-theme.css', './talk-submission.css'],
   host: {
     '[attr.data-theme]': 'theme()',
   },
@@ -42,7 +34,7 @@ export class TalkSubmission implements OnInit, OnDestroy {
   private readonly http = inject(HttpClient);
   private schemeQuery: MediaQueryList | null = null;
 
-  readonly theme = signal<ThemeName>(storedTheme() ?? (systemPrefersNight() ? 'night' : 'light'));
+  readonly theme = signal<CfpTheme>(storedTheme() ?? (systemPrefersNight() ? 'night' : 'light'));
   readonly draft = signal<TalkDraft>({ ...EMPTY_DRAFT });
   readonly created = signal<SpeakerDTO | null>(null);
   readonly submitError = signal<string | null>(null);
@@ -70,9 +62,9 @@ export class TalkSubmission implements OnInit, OnDestroy {
 
   setNightTheme(event: Event): void {
     const checked = (event.target as HTMLInputElement).checked;
-    const next: ThemeName = checked ? 'night' : 'light';
+    const next: CfpTheme = checked ? 'night' : 'light';
     this.theme.set(next);
-    localStorage.setItem(THEME_STORAGE_KEY, next);
+    localStorage.setItem(CFP_THEME_STORAGE_KEY, next);
   }
 
   patchText(field: 'name' | 'email' | 'talkTitle', event: Event): void {

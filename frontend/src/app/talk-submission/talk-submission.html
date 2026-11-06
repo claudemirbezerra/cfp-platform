@@ -12,6 +12,7 @@
   (submit)="submit($event)"
 >
   <h1 id="talk-submission-heading">Submit a talk</h1>
+  <a routerLink="/dashboard" class="cfp-button">View submissions</a>
 
   <label for="speaker-name">Name</label>
   <input
@@ -69,7 +70,7 @@
     Select this if you are a Google Developer Expert.
   </p>
 
-  <button class="talk-submission__submit" type="submit" [disabled]="!canSubmit()">
+  <button class="cfp-button talk-submission__submit" type="submit" [disabled]="!canSubmit()">
     Submit proposal
   </button>
 

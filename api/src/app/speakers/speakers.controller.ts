@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { SpeakerDTO } from '@cfp-platform/shared-types';
 import { CreateSpeakerDto } from './create-speaker.dto';
 import { SpeakersService } from './speakers.service';
@@ -6,6 +6,11 @@ import { SpeakersService } from './speakers.service';
 @Controller('speakers')
 export class SpeakersController {
   constructor(private readonly speakersService: SpeakersService) {}
+
+  @Get()
+  findAll(): SpeakerDTO[] {
+    return this.speakersService.findAll();
+  }
 
   @Post()
   create(@Body() body: CreateSpeakerDto): SpeakerDTO {

@@ -7,7 +7,10 @@ module.exports = {
     tsconfig: '<rootDir>/tsconfig.talk-submission.json',
   }),
   setupFilesAfterEnv: ['<rootDir>/test-setup-talk-submission.ts'],
-  testMatch: ['<rootDir>/src/app/talk-submission/talk-submission.spec.ts'],
+  testMatch: [
+    '<rootDir>/src/app/talk-submission/talk-submission.spec.ts',
+    '<rootDir>/src/app/cfp-dashboard/cfp-dashboard.spec.ts',
+  ],
   moduleNameMapper: {
     '^@cfp-platform/shared-types$': '<rootDir>/../shared-types/src/index.ts',
   },

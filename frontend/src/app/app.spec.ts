@@ -29,13 +29,24 @@ describe('App', () => {
     const fixture = TestBed.createComponent(App);
     const router = TestBed.inject(Router);
     fixture.detectChanges();
-    const navigated = await router.navigateByUrl('/');
-    await fixture.whenStable();
-    fixture.detectChanges();
 
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(navigated).toBe(true);
-    expect(compiled.querySelector('h1')?.textContent).toContain('Submit a talk');
-    expect(compiled.querySelector('app-nx-welcome')).toBeNull();
+    for (const url of ['/', '/cfp']) {
+      const navigated = await router.navigateByUrl(url);
+      await fixture.whenStable();
+      fixture.detectChanges();
+
+      const compiled = fixture.nativeElement as HTMLElement;
+      expect(navigated).toBe(true);
+      expect(compiled.querySelector('h1')?.textContent).toContain('Submit a talk');
+      expect(compiled.querySelector('app-nx-welcome')).toBeNull();
+
+      const dashboardLink = Array.from(compiled.querySelectorAll('a')).find(
+        (anchor) => anchor.textContent?.replace(/\s+/g, ' ').trim() === 'View submissions'
+      );
+      expect(dashboardLink?.getAttribute('href')).toBe('/dashboard');
+
+      const submit = compiled.querySelector('button[type="submit"]');
+      expect(submit?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Submit proposal');
+    }
   });
 });

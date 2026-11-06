@@ -76,7 +76,8 @@
       "options": {
         "watch": false,
         "exclude": [
-          "app/talk-submission/**/*.spec.ts"
+          "app/talk-submission/**/*.spec.ts",
+          "app/cfp-dashboard/**/*.spec.ts"
         ]
       }
     },

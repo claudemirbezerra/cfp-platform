@@ -93,3 +93,56 @@ describe('POST /api/speakers', () => {
       .expect({ message: 'Hello API' });
   });
 });
+
+describe('GET /api/speakers', () => {
+  let app: INestApplication;
+
+  beforeEach(async () => {
+    const moduleRef = await Test.createTestingModule({
+      imports: [AppModule],
+    }).compile();
+
+    app = moduleRef.createNestApplication();
+    app.setGlobalPrefix('api');
+    app.useGlobalPipes(createValidationPipe());
+    await app.init();
+  });
+
+  afterEach(async () => {
+    await app.close();
+  });
+
+  const validBody = {
+    name: 'Ada Lovelace',
+    email: 'ada@example.com',
+    talkTitle: 'Notes on the Analytical Engine',
+    isGDE: true,
+  };
+
+  it('returns 200 and an empty array when no talk has been accepted', async () => {
+    const response = await request(app.getHttpServer()).get('/api/speakers').expect(200);
+
+    expect(response.body).toEqual([]);
+  });
+
+  it('returns the stored speaker and a second read returns the same body', async () => {
+    const created = await request(app.getHttpServer())
+      .post('/api/speakers')
+      .send(validBody)
+      .expect(201);
+
+    const stored = {
+      id: created.body.id,
+      name: validBody.name,
+      email: validBody.email,
+      talkTitle: validBody.talkTitle,
+      isGDE: validBody.isGDE,
+    };
+
+    const first = await request(app.getHttpServer()).get('/api/speakers').expect(200);
+    expect(first.body).toEqual([stored]);
+
+    const second = await request(app.getHttpServer()).get('/api/speakers').expect(200);
+    expect(second.body).toEqual(first.body);
+  });
+});

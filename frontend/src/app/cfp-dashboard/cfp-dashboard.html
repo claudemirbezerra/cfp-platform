@@ -1,0 +1,34 @@
+<label class="cfp-dashboard__theme">
+  <input
+    type="checkbox"
+    [checked]="theme() === 'night'"
+    (change)="setNightTheme($event)"
+  />
+  Night theme
+</label>
+
+<section class="cfp-dashboard" aria-labelledby="cfp-dashboard-heading">
+  <h1 id="cfp-dashboard-heading">Submitted talks</h1>
+  <a routerLink="/cfp" class="cfp-button">Submit a talk</a>
+
+  @if (loading()) {
+    <p role="status">Loading talks.</p>
+  } @else if (loadError(); as message) {
+    <p class="cfp-dashboard__error" role="alert">{{ message }}</p>
+  } @else if (talks().length === 0) {
+    <p>No talks submitted yet.</p>
+  } @else {
+    <ul class="cfp-dashboard__list">
+      @for (talk of talks(); track talk.id) {
+        <li class="cfp-dashboard__card">
+          <h2>{{ talk.talkTitle }}</h2>
+          <p>{{ talk.name }}</p>
+          <p>{{ talk.email }}</p>
+          <p>
+            {{ talk.isGDE ? 'Google Developer Expert' : 'Not a Google Developer Expert' }}
+          </p>
+        </li>
+      }
+    </ul>
+  }
+</section>

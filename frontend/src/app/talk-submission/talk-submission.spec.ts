@@ -1,6 +1,7 @@
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { TalkSubmission } from './talk-submission';
 
 function accessibleName(element: HTMLElement): string {
@@ -27,7 +28,7 @@ describe('TalkSubmission', () => {
 
     await TestBed.configureTestingModule({
       imports: [TalkSubmission],
-      providers: [provideHttpClient(), provideHttpClientTesting()],
+      providers: [provideRouter([]), provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
   });
 
@@ -46,9 +47,16 @@ describe('TalkSubmission', () => {
 
     const submit = root.querySelector('button[type="submit"]') as HTMLButtonElement;
     expect(submit).toBeInstanceOf(HTMLButtonElement);
+    expect(submit.classList.contains('cfp-button')).toBe(true);
     expect(submit.classList.contains('talk-submission__submit')).toBe(true);
     expect(submit.disabled).toBe(true);
     expect(accessibleName(submit)).toBe('Submit proposal');
+
+    const dashboardLink = Array.from(root.querySelectorAll('a')).find(
+      (anchor) => anchor.textContent?.trim() === 'View submissions'
+    );
+    expect(dashboardLink?.getAttribute('href')).toBe('/dashboard');
+    expect(dashboardLink?.classList.contains('cfp-button')).toBe(true);
 
     expect(accessibleName(root.querySelector('#speaker-name') as HTMLElement)).toBe(
       'Name'

@@ -1,0 +1,46 @@
+:host {
+  --page: #eef2f6;
+  --card: #ffffff;
+  --text: #1c2430;
+  --hint: #4b5568;
+  --border: #d5dde6;
+  --button-fill: #1d4ed8;
+  --button-label: #ffffff;
+  --success-bg: #e5f6ec;
+  --success-text: #14532d;
+  --error-bg: #fde8e8;
+  --error-text: #7f1d1d;
+}
+
+:host([data-theme='night']) {
+  --page: #0f141c;
+  --card: #1a2230;
+  --text: #e8eef7;
+  --hint: #b7c3d4;
+  --border: #2c3848;
+  --button-fill: #60a5fa;
+  --button-label: #0b1220;
+  --success-bg: #143528;
+  --success-text: #bbf7d0;
+  --error-bg: #3f1d24;
+  --error-text: #fecaca;
+}
+
+.cfp-button {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0.75rem 1.25rem;
+  border: 0;
+  border-radius: 0.6rem;
+  background: var(--button-fill);
+  color: var(--button-label);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.cfp-button:focus-visible {
+  outline: 2px solid var(--button-fill);
+  outline-offset: 2px;
+}
